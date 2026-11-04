@@ -467,14 +467,29 @@ async function playCloudVoice(text, token){
  const chunks=String(text).replace(/\n+/g,'. ').match(/[\s\S]{1,2600}(?:[.!?…]+|$)/g)||[String(text)];
  for(const chunk of chunks){
   if(token!==speechQueueToken)return;
-  const response=await fetch(OVERTON_API_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'tts',language:appLanguage,gender,text:chunk.trim(),speed:Math.min(1.15,Math.max(.75,.72+speed*.34))})});
-  if(!response.ok)throw new Error('TTS HTTP '+response.status);
-  const data=await response.json();if(!data.audio)throw new Error(data.error||'TTS audio missing');
+  let response;
+  try{
+   response=await fetch(OVERTON_API_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'tts',language:appLanguage,gender,text:chunk.trim(),speed:Math.min(1.15,Math.max(.75,.72+speed*.34))})});
+  }catch(error){
+   throw new Error('Ошибка соединения с облачной озвучкой: '+(error?.message||'нет соединения'));
+  }
+  const responseText=await response.text();
+  let data={};
+  try{data=JSON.parse(responseText)}catch{
+   throw new Error('Сервер озвучки вернул неверный ответ (HTTP '+response.status+'): '+responseText.slice(0,240));
+  }
+  if(!response.ok)throw new Error(data.error||('Ошибка облачной озвучки HTTP '+response.status));
+  if(!data.audio||typeof data.audio!=='string')throw new Error(data.error||'Сервер озвучки не вернул аудио.');
   if(token!==speechQueueToken)return;
-  // Worker returns either a hosted audio URL or a data:audio/mpeg;base64 URI.
   const audioSource=data.audio.startsWith('data:audio/')||/^https?:\/\//i.test(data.audio)
-    ? data.audio : 'data:audio/mpeg;base64,'+data.audio;
-  await new Promise((resolve,reject)=>{const audio=new Audio();overtoneAudio=audio;audio.preload='auto';audio.onended=()=>{if(overtoneAudio===audio)overtoneAudio=null;resolve()};audio.onerror=()=>reject(new Error('Audio playback failed'));audio.src=audioSource;const playResult=audio.play();if(playResult&&typeof playResult.catch==='function')playResult.catch(reject)});
+   ? data.audio : 'data:audio/mpeg;base64,'+data.audio;
+  await new Promise((resolve,reject)=>{
+   const audio=new Audio();overtoneAudio=audio;audio.preload='auto';
+   audio.onended=()=>{if(overtoneAudio===audio)overtoneAudio=null;resolve()};
+   audio.onerror=()=>reject(new Error('Не удалось воспроизвести полученное аудио.'));
+   audio.src=audioSource;
+   const playResult=audio.play();if(playResult&&typeof playResult.catch==='function')playResult.catch(reject);
+  });
  }
 }
 function speakOverton(text){
