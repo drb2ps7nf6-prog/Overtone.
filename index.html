@@ -215,7 +215,105 @@ html.intro-open,body.intro-open{overflow:hidden!important;overscroll-behavior:no
 @media(max-width:760px){.intro-overlay.touring .intro-orb-wrap{top:27%!important;width:140px!important;height:140px!important}.intro-overlay.touring .intro-dialog{top:calc(27% + 85px)!important;padding:12px 14px!important}.intro-overlay.touring .intro-copy{font-size:13px!important;line-height:1.55!important}.intro-overlay.touring .intro-actions{bottom:54px!important}.tour-callout:before{left:-19px;font-size:17px}.tour-bubble{max-width:calc(100vw - 68px)!important}}
 @media(prefers-reduced-motion:reduce){.neural-ribbon,.orb,.intro-orb,.tour-callout:before{animation:none!important}}
 
-</style></head>
+/* OVERTONE — unified midnight-blue interface + restrained transparent glass orb */
+:root{
+ --bg:#071626;--paper:#0d2034;--ink:#e4edf8;--muted:#91a5bc;--line:#1c3550;
+ --lav:#8eafd2;--lav2:#193550;--blue:#9abde4;--sage:#a7c4c2;--rose:#c1b5d7;
+ --shadow:0 18px 55px #0004;
+}
+html,body{background:#071626!important;color:#e4edf8!important}
+body{background:radial-gradient(ellipse at 58% 25%,#10243a 0%,#091a2c 48%,#061321 100%)!important}
+.app{background:transparent!important}
+.sidebar{background:#081827!important;border-right-color:#1a344d!important}
+.brand,.top h1,.section-head h2,.card h3,.entry h4{color:#e5eef9!important}
+.brand small,.eyebrow,.date,.muted,.side-note,.nav button{color:#91a6bd!important}
+.nav button:hover,.nav button.active{background:#142d47!important;color:#e5f0ff!important}
+.side-note,.card,.exercise,.modal,.profile-row{background:#0d2034!important;border-color:#1d3853!important;color:#dce8f6!important}
+.field,.composer,.chat-compose input,.mood-option{
+ background:#091a2b!important;color:#e4edf8!important;border-color:#27435f!important
+}
+.field::placeholder,.composer input::placeholder{color:#7890aa!important}
+.primary,.send{background:#527ca9!important;color:#f4f8ff!important}
+.secondary,.pill,.iconbtn,.mood-option{background:#172e47!important;color:#b9cbe0!important;border:1px solid #294765!important}
+.nav button.active{box-shadow:inset 2px 0 #83b4e8}
+.entry,.profile-row{border-color:#1c3550!important}
+.bubble.bot{background:#172e47!important;color:#e0eafa!important}
+.bubble.user{background:#456b94!important;color:#fff!important}
+.hero{
+ background:radial-gradient(ellipse at 50% 46%,#112941 0%,#0b1e32 57%,#081829 100%)!important;
+ border:1px solid #1d3854!important;
+ box-shadow:inset 0 1px #ffffff08,0 18px 55px #0002!important;
+}
+.hero:before{width:330px!important;height:330px!important;top:55px!important;
+ background:radial-gradient(circle,#8eb9e51b 0%,#829dc90a 38%,transparent 72%)!important;filter:blur(8px)!important}
+.hero:after{width:440px!important;height:180px!important;bottom:0!important;
+ background:radial-gradient(ellipse,#8fb9e51a 0%,transparent 72%)!important}
+.hero h2{color:#e4edf8!important}.hero p{color:#9db1c8!important}
+.orb-wrap,.intro-orb-wrap{isolation:isolate}
+.orb,.intro-orb{
+ width:76%!important;height:76%!important;border-radius:50%!important;
+ position:relative!important;overflow:hidden!important;isolation:isolate!important;
+ background:
+  radial-gradient(ellipse at 30% 17%,#ffffffa8 0%,#ffffff48 5%,transparent 23%),
+  radial-gradient(ellipse at 72% 78%,#9fcdf52a 0%,transparent 39%),
+  radial-gradient(circle at 50% 50%,#d9edff09 0%,#b9d8f20b 60%,#e9f5ff12 100%)!important;
+ border:1px solid #f2f8ffb8!important;
+ box-shadow:inset 0 0 0 1px #dceeff38,inset 9px 10px 24px #ffffff3b,
+  inset -12px -15px 25px #9ac6ec20,0 9px 30px #0003,0 0 28px #9bc8f01b!important;
+ filter:none!important;backdrop-filter:blur(1px) saturate(125%)!important;
+ animation:soapFloat 9s ease-in-out infinite!important;
+}
+.orb:before,.intro-orb:before{
+ content:""!important;position:absolute!important;inset:5% 12% 58% 15%!important;
+ border-radius:50%!important;background:linear-gradient(145deg,#ffffffd4 0%,#ffffff5c 19%,#ffffff0c 58%,transparent 78%)!important;
+ filter:blur(4px)!important;transform:rotate(-25deg)!important;z-index:8!important
+}
+.orb:after,.intro-orb:after{
+ content:""!important;position:absolute!important;width:12%!important;height:4%!important;
+ right:19%!important;top:17%!important;border-radius:50%!important;
+ background:#ffffffd9!important;filter:blur(3px)!important;z-index:9!important;
+ box-shadow:0 0 13px #d8edff80!important
+}
+.orb-glow,.intro-orb-halo{
+ background:radial-gradient(circle,#a9cbed20 0%,#9eb9df0c 48%,transparent 72%)!important;
+ filter:blur(22px)!important
+}
+.orb-ring{display:none!important}
+/* Three wide internal liquid ribbons only; the orb clips every edge. */
+.neural-ribbon{
+ position:absolute!important;display:block!important;pointer-events:none!important;
+ z-index:4!important;border:1.6px solid #d8edff70!important;border-radius:50%!important;
+ background:transparent!important;mix-blend-mode:screen!important;
+ filter:drop-shadow(0 0 4px #a8d3f555)!important;will-change:transform!important
+}
+.ribbon-one{width:112%!important;height:37%!important;left:-6%!important;top:30%!important;
+ border-color:#d7edff80!important;border-bottom-color:#a7c9ed3b!important;
+ animation:liquidA 13s ease-in-out infinite!important}
+.ribbon-two{width:108%!important;height:29%!important;left:-4%!important;top:42%!important;
+ border-color:#b8d8f45c!important;border-top-color:#f2f8ff9c!important;
+ animation:liquidB 16s ease-in-out infinite!important}
+.ribbon-three{width:96%!important;height:22%!important;left:2%!important;top:36%!important;
+ border-color:#dcecff4c!important;border-right-color:#ffffffa3!important;
+ animation:liquidC 11s ease-in-out infinite!important}
+@keyframes soapFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-5px) scale(1.012)}}
+@keyframes liquidA{0%,100%{transform:translate(-2%,1%) rotate(-13deg) scaleY(.9);opacity:.52}50%{transform:translate(3%,-3%) rotate(-4deg) scaleY(1.12);opacity:.88}}
+@keyframes liquidB{0%,100%{transform:translate(2%,0) rotate(12deg) scaleY(1.05);opacity:.4}50%{transform:translate(-3%,3%) rotate(21deg) scaleY(.86);opacity:.78}}
+@keyframes liquidC{0%,100%{transform:translate(0,2%) rotate(4deg) scaleX(.94);opacity:.34}50%{transform:translate(2%,-2%) rotate(-8deg) scaleX(1.06);opacity:.72}}
+.intro-overlay{background:radial-gradient(ellipse at 50% 36%,#102943 0%,#091a2c 58%,#061321 100%)!important;color:#e5eef9!important}
+.intro-overlay .intro-title,.intro-overlay h1,.intro-overlay h2,.intro-overlay p{color:#e5eef9!important}
+.intro-overlay .intro-subtitle,.intro-overlay .muted{color:#a1b5cb!important}
+.tour-bubble{background:#102943f2!important;border-color:#385b7d!important;color:#e5eef9!important}
+.tour-icon{background:#1b3a59!important;border-color:#6d9ac6!important}
+@media(max-width:760px){
+ .bottomnav{background:#081827!important;border-top:1px solid #1b3550!important}
+ .main{padding-top:22px!important}
+ .hero{border-radius:24px!important}
+}
+@media(prefers-reduced-motion:reduce){.neural-ribbon,.orb,.intro-orb{animation:none!important}}
+
+
+</style><meta name="overtone-voice-build" content="night-voice-2-blue-merged">
+</head>
 <body><div class="app">
 <aside class="sidebar"><div class="brand">OVERTON<small>A SPACE FOR SELF-REFLECTION</small></div><nav class="nav" id="sideNav"><button class="active" data-view="home"><span class="ico">◉</span>Overton</button><button data-view="journal"><span class="ico">▤</span>Journal</button><button data-view="mood"><span class="ico">◌</span>Mood tracker</button><button data-view="reflection"><span class="ico">✧</span>Reflection</button><button data-view="insights"><span class="ico">⌁</span>Insights</button><button data-view="profile"><span class="ico">◎</span>Profile & settings</button></nav><div class="side-note">a little space to pause, notice, and understand yourself.<br><br><b>Overton</b> is a self-reflection companion, not a medical or therapeutic service.</div></aside>
 <main class="main"><header class="top"><div><div class="eyebrow">your personal reflection space</div><h1 id="pageTitle">a moment for yourself.</h1></div><div class="date" id="today"></div></header>
@@ -224,7 +322,8 @@ html.intro-open,body.intro-open{overflow:hidden!important;overscroll-behavior:no
 <section class="view" id="view-mood"><div class="section-head"><h2>mood tracker</h2><span class="muted">a personal check-in</span></div><div class="card"><h3>how are you feeling right now?</h3><div class="mood-options" id="moodOptions"><button class="mood-option" data-mood="Very difficult"><span>☁️</span><small>very difficult</small></button><button class="mood-option" data-mood="Difficult"><span>🌧️</span><small>difficult</small></button><button class="mood-option" data-mood="Neutral"><span>🌫️</span><small>neutral</small></button><button class="mood-option" data-mood="Good"><span>🌤️</span><small>good</small></button><button class="mood-option" data-mood="Very good"><span>☀️</span><small>very good</small></button></div><textarea class="field" id="moodNote" style="margin-top:15px;min-height:85px" placeholder="would you like to add a note? (optional)"></textarea><div style="display:flex;justify-content:flex-end;margin-top:12px"><button class="primary" id="saveMood">save check-in</button></div></div><div class="card" style="margin-top:15px"><h3>your mood history</h3><div id="moodHistory" class="muted">your check-ins will appear here.</div></div></section>
 <section class="view" id="view-reflection"><div class="section-head"><h2>guided reflection</h2><span class="muted">take your time</span></div><p class="muted" style="margin:0 0 15px">gentle prompts to help you explore what's on your mind. there are no right or wrong answers.</p><div class="exercise-grid" id="exerciseGrid"></div></section>
 <section class="view" id="view-insights"><div class="section-head"><h2>your insights</h2><span class="muted">based on your activity</span></div><div class="below" style="margin-top:0"><div class="card"><div class="eyebrow">journal entries</div><div style="font:700 34px Manrope;margin-top:8px" id="insEntries">0</div></div><div class="card"><div class="eyebrow">mood check-ins</div><div style="font:700 34px Manrope;margin-top:8px" id="insMoods">0</div></div></div><div class="card" style="margin-top:15px"><h3 id="reportHeading">отчёты за период</h3><div class="report-controls" style="display:flex;gap:8px;flex-wrap:wrap;margin:12px 0"><button class="secondary" id="weeklyReport">неделя</button><button class="secondary" id="monthlyReport">месяц</button></div><p class="muted" id="reportStatus">отчёт строится только по сохранённым записям дневника.</p><div id="reportOutput" class="muted" style="white-space:pre-line;line-height:1.7"></div></div><div class="card" style="margin-top:15px"><h3>a gentle observation</h3><p class="muted" id="insObservation">as you add reflections, this space will show simple summaries of your activity. it won't make diagnoses or draw conclusions about your health.</p></div><div class="card" style="margin-top:15px"><h3>your reflection themes</h3><div id="insThemes" class="muted">themes from your journal tags will appear here.</div></div></section>
-<section class="view" id="view-profile"><div class="section-head"><h2>profile & settings</h2></div><div class="card"><div class="profile-row"><span>name</span><strong id="profileUserName">не указано</strong></div><div class="formgrid" style="margin-top:12px"><label class="muted">как к тебе обращаться<input class="field" id="profileNameInput" maxlength="32" placeholder="имя или ник"></label><label class="muted">что мне важно знать о тебе<textarea class="field" id="profileAboutInput" rows="3" placeholder="например: учусь в 9 классе, люблю музыку, сейчас готовлюсь к экзаменам"></textarea></label><label class="muted">что тебе обычно помогает<textarea class="field" id="profileSupportInput" rows="2" placeholder="например: когда меня сначала выслушивают, а потом предлагают конкретные шаги"></textarea></label><button class="primary" id="saveProfile">сохранить профиль</button></div><div class="profile-row"><span>assistant</span><strong>Overton</strong></div><div class="profile-row"><span>language / язык</span><select id="languageSelect" class="field" style="width:auto"><option value="ru">Русский</option><option value="en">English</option></select></div><div class="profile-row"><span>response style</span><select id="responseStyle" class="field" style="width:auto"><option>thoughtful and detailed</option><option>short and direct</option><option>gentle and unhurried</option></select></div><div class="profile-row"><span>data storage</span><strong>this device</strong></div><div class="profile-row"><span>AI mode</span><strong id="aiModeStatus">локальная диалоговая версия</strong></div>
+<section class="view" id="view-profile"><div class="section-head"><h2>profile & settings</h2></div><div class="card"><div class="profile-row"><span>name</span><strong id="profileUserName">не указано</strong></div><div class="formgrid" style="margin-top:12px"><label class="muted">как к тебе обращаться<input class="field" id="profileNameInput" maxlength="32" placeholder="имя или ник"></label><label class="muted">что мне важно знать о тебе<textarea class="field" id="profileAboutInput" rows="3" placeholder="например: учусь в 9 классе, люблю музыку, сейчас готовлюсь к экзаменам"></textarea></label><label class="muted">что тебе обычно помогает<textarea class="field" id="profileSupportInput" rows="2" placeholder="например: когда меня сначала выслушивают, а потом предлагают конкретные шаги"></textarea></label><button class="primary" id="saveProfile">сохранить профиль</button></div><div class="profile-row"><span>assistant</span><strong>Overton</strong></div><div class="profile-row"><span>language / язык</span><select id="languageSelect" class="field" style="width:auto"><option value="ru">Русский</option><option value="en">English</option></select></div>
+<div class="card" id="voiceSettingsCard" style="margin-top:14px;padding:14px;border:1px solid var(--line)"><h3 style="margin-top:0">Голос OVERTONE</h3><p class="muted" style="font-size:13px;margin:0 0 12px">Выбери характер голоса и темп. При включённом разрешении используются нейросетевые голоса; иначе — доступные голоса устройства.</p><div class="formgrid"><label class="muted">Тембр<select id="voiceGender" class="field"><option value="male">Мягкий мужской</option><option value="female">Мягкий женский</option><option value="auto">Автоматический</option></select></label><label class="muted">Дополнительный голос устройства<select id="voiceChoice" class="field"><option value="auto">Автоматический выбор</option></select></label><label class="muted">Скорость речи <strong id="voiceRateValue">0,88×</strong><input id="voiceRate" class="field" type="range" min="0.72" max="0.98" step="0.02" value="0.84" style="padding:0"></label><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button class="secondary" id="voicePreview" type="button">▶ Прослушать пример</button><span class="muted" id="voiceSettingsHint" style="font-size:12px">Голоса созданы ИИ. Для облачной озвучки нужно разрешение на ИИ.</span></div></div></div><div class="profile-row"><span>response style</span><select id="responseStyle" class="field" style="width:auto"><option>thoughtful and detailed</option><option>short and direct</option><option>gentle and unhurried</option></select></div><div class="profile-row"><span>data storage</span><strong>this device</strong></div><div class="profile-row"><span>AI mode</span><strong id="aiModeStatus">локальная диалоговая версия</strong></div>
 <div class="formgrid" style="margin-top:12px;padding:12px;border:1px solid var(--line);border-radius:14px">
 <label style="display:flex;gap:10px;align-items:flex-start;line-height:1.45"><input type="checkbox" id="aiConsent" style="margin-top:4px;accent-color:#8da8d8"><span>Я согласна отправлять текст своих сообщений в разговоре внешнему ИИ-сервису, чтобы получать ответы. Профиль будет передаваться только вместе с сообщением и только если я включу это разрешение.</span></label>
 <p class="muted" style="font-size:12px;margin:0">Перед отправкой подумай, не содержит ли сообщение адрес, телефон, фамилию, данные школы или другую личную информацию. Не используй OVERTON как экстренную или медицинскую службу. Разрешение можно отключить в любой момент.</p>
@@ -357,16 +456,47 @@ async function sendChat(text){
 function renderChatHistory(){let el=$('#chatHistory');if(!el)return;el.innerHTML=chatSessions.length?'<div class="muted" style="margin-bottom:8px">предыдущие разговоры · нажми, чтобы открыть</div>'+chatSessions.map(x=>`<button class="secondary" data-session="${esc(x.id)}" style="margin:0 6px 7px 0;max-width:100%;white-space:normal;text-align:left">${esc(x.title||'разговор')} · ${new Date(x.updated).toLocaleDateString('ru-RU')}</button>`).join(''):'<div class="muted" style="margin-bottom:8px">история разговоров сохранится здесь автоматически</div>';el.querySelectorAll('[data-session]').forEach(b=>b.onclick=()=>openChatSession(b.dataset.session))}
 function openChatSession(id){saveSessionSnapshot();let item=chatSessions.find(x=>x.id===id);if(!item)return;currentSessionId=item.id;chat=item.messages.slice();$('#chatLog').innerHTML='';chat.forEach(m=>{let b=document.createElement('div');b.className='bubble '+m.who;b.textContent=m.text;$('#chatLog').append(b)});persistChat();go('chat')}
 function newChat(){saveSessionSnapshot();chat=[];currentSessionId=Date.now().toString();dialogueState={topic:'',lastQuestion:'',lastIntent:'',turns:0};$('#chatLog').innerHTML='';addBubble('давай начнём новую беседу. я буду внимательно следить за контекстом внутри этого разговора. о чём хочешь поговорить?','bot');saveSessionSnapshot();toast('начат новый разговор')}
-let voiceMode=false,recognition=null;
+let voiceMode=storage.get('voiceMode')!=='off',recognition=null;
 let speechQueueToken=0;
-function getPreferredVoice(language='ru'){if(!('speechSynthesis'in window))return null;const prefix=language==='en'?'en':'ru';const voices=window.speechSynthesis.getVoices().filter(v=>v.lang&&v.lang.toLowerCase().startsWith(prefix));if(!voices.length)return null;const lower=voices.filter(v=>/yuri|yuriy|pavel|mikhail|michael|maxim|maksim|alex|daniel|thomas|dmitry|dmitriy|oleg|male|низкий/i.test(v.name));return lower[0]||voices.find(v=>/natural|premium|enhanced/i.test(v.name))||voices.find(v=>v.lang.toLowerCase()===(prefix==='ru'?'ru-ru':'en-us'))||voices[0]}
+function getPreferredVoice(language='ru'){if(!('speechSynthesis'in window))return null;const prefix=language==='en'?'en':'ru';const voices=window.speechSynthesis.getVoices().filter(v=>v.lang&&v.lang.toLowerCase().startsWith(prefix));if(!voices.length)return null;const chosen=storage.get('voiceChoice')||'auto';if(chosen!=='auto'){const exact=voices.find(v=>v.name===chosen);if(exact)return exact}const gender=storage.get('voiceGender')||'male';const male=/yuri|yuriy|pavel|mikhail|michael|maxim|maksim|alex|daniel|thomas|dmitry|dmitriy|oleg|male|арте|алекс|иван|борис|муж|mark|david/i;const female=/female|anna|alena|elena|irina|maria|katya|olga|ольга|анна|алёна|елена|ирина|мария|жен|samantha|victoria/i;const preferred=gender==='female'?voices.find(v=>female.test(v.name)):gender==='male'?voices.find(v=>male.test(v.name)):null;return preferred||voices.find(v=>/natural|premium|enhanced/i.test(v.name))||voices.find(v=>v.lang.toLowerCase()===(prefix==='ru'?'ru-ru':'en-us'))||voices[0]}
 function getRussianVoice(){return getPreferredVoice('ru')}
-function speakOverton(text){if(!('speechSynthesis'in window)){toast('озвучивание не поддерживается этим браузером');return}try{window.speechSynthesis.cancel();const token=++speechQueueToken;const chunks=String(text).replace(/\n+/g,'. ').match(/[^.!?…]+[.!?…]*/g)||[String(text)];let index=0;const voice=getRussianVoice();setOvertonState('speaking');function next(){if(token!==speechQueueToken||index>=chunks.length){setOvertonState('idle');return}let part=chunks[index++].trim();if(!part){next();return}let u=new SpeechSynthesisUtterance(part);u.lang='ru-RU';u.voice=voice;u.rate=.88;u.pitch=.98;u.volume=1;u.onend=()=>setTimeout(next,/[.!?…]$/.test(part)?260:100);u.onerror=()=>{setOvertonState('error');setTimeout(()=>setOvertonState('idle'),850)};window.speechSynthesis.speak(u)}next()}catch(e){setOvertonState('error');toast('озвучивание сейчас недоступно')}}
+let overtoneAudio=null;
+async function playCloudVoice(text, token){
+ const gender=storage.get('voiceGender')||'male';
+ const speed=Number(storage.get('voiceRate')||.84);
+ const chunks=String(text).replace(/\n+/g,'. ').match(/[\s\S]{1,2600}(?:[.!?…]+|$)/g)||[String(text)];
+ for(const chunk of chunks){
+  if(token!==speechQueueToken)return;
+  const response=await fetch(OVERTON_API_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'tts',language:appLanguage,gender,text:chunk.trim(),speed:Math.min(1.15,Math.max(.75,.72+speed*.34))})});
+  if(!response.ok)throw new Error('TTS HTTP '+response.status);
+  const data=await response.json();if(!data.audio)throw new Error(data.error||'TTS audio missing');
+  if(token!==speechQueueToken)return;
+  // Worker returns either a hosted audio URL or a data:audio/mpeg;base64 URI.
+  const audioSource=data.audio.startsWith('data:audio/')||/^https?:\/\//i.test(data.audio)
+    ? data.audio : 'data:audio/mpeg;base64,'+data.audio;
+  await new Promise((resolve,reject)=>{const audio=new Audio();overtoneAudio=audio;audio.preload='auto';audio.onended=()=>{if(overtoneAudio===audio)overtoneAudio=null;resolve()};audio.onerror=()=>reject(new Error('Audio playback failed'));audio.src=audioSource;const playResult=audio.play();if(playResult&&typeof playResult.catch==='function')playResult.catch(reject)});
+ }
+}
+function speakOverton(text){
+ if(!text)return;
+ if('speechSynthesis'in window)window.speechSynthesis.cancel();
+ if(overtoneAudio){overtoneAudio.pause();overtoneAudio=null}
+ const token=++speechQueueToken;setOvertonState('speaking');
+ const useCloud=!!(aiConsent&&OVERTON_API_ENDPOINT&&OVERTON_API_ENDPOINT!=='PASTE_YOUR_WORKER_URL_HERE');
+ if(useCloud){playCloudVoice(text,token).then(()=>{if(token===speechQueueToken)setOvertonState('idle')}).catch(error=>{console.warn('Cloud TTS unavailable; using device speech:',error);if(token!==speechQueueToken)return;setVoiceHint(appLanguage==='ru'?'Не удалось получить облачный голос: '+(error?.message||'ошибка сервера')+'. Использую голос устройства.':'Cloud voice failed: '+(error?.message||'server error')+'. Using device voice.');speakWithDeviceVoice(text,token)});return}
+ speakWithDeviceVoice(text,token);
+}
+function speakWithDeviceVoice(text,token){
+ if(!('speechSynthesis'in window)){setOvertonState('idle');toast(appLanguage==='ru'?'Озвучивание не поддерживается этим браузером.':'Speech playback is not supported.');return}
+ const voice=getPreferredVoice(appLanguage);const chunks=String(text).replace(/\n+/g,'. ').match(/[^.!?…]+[.!?…]*/g)||[String(text)];let index=0;
+ function next(){if(token!==speechQueueToken||index>=chunks.length){if(token===speechQueueToken)setOvertonState('idle');return}const part=chunks[index++].trim();if(!part){next();return}const utter=new SpeechSynthesisUtterance(part);utter.lang=speechLocale();if(voice)utter.voice=voice;utter.rate=Number(storage.get('voiceRate')||.84);utter.pitch=(storage.get('voiceGender')==='male'?.80:storage.get('voiceGender')==='female'?1.00:.94);utter.volume=1;utter.onend=()=>setTimeout(next,/[.!?…]$/.test(part)?220:80);utter.onerror=()=>{if(token===speechQueueToken){setOvertonState('idle');setVoiceHint(appLanguage==='ru'?'Системная озвучка завершилась с ошибкой.':'Device speech failed.')}};window.speechSynthesis.speak(utter)}
+ next();
+}
 function setVoiceHint(text){let el=$('#voiceHint');if(el)el.textContent=text;let hint=$('#chatModeHint');if(hint)hint.textContent=text}
 function startVoiceInput(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){toast('распознавание речи недоступно в этом браузере. попробуй Safari или микрофон клавиатуры');setVoiceHint('голосовой ввод не поддерживается этим браузером — можно использовать микрофон клавиатуры');return}if(recognition){try{recognition.stop()}catch(e){}}recognition=new SR();recognition.lang='ru-RU';recognition.interimResults=true;recognition.maxAlternatives=1;let finalText='';recognition.onstart=()=>{voiceMode=true;setOvertonState('listening');$('#voiceBtn').textContent='■';$('#chatVoiceBtn').textContent='■';setVoiceHint('слушаю тебя… нажми ■, чтобы остановить')};recognition.onresult=e=>{let interim='';for(let i=e.resultIndex;i<e.results.length;i++){let t=e.results[i][0].transcript;if(e.results[i].isFinal)finalText+=t;else interim+=t}let shown=(finalText+' '+interim).trim();if($('#homeInput'))$('#homeInput').value=shown;if($('#chatInput'))$('#chatInput').value=shown;if(finalText.trim()){let transcript=finalText.trim();finalText='';$('#homeInput').value='';$('#chatInput').value='';sendChat(transcript)}};recognition.onerror=e=>{setOvertonState('error');setVoiceHint('не получилось распознать речь. проверь доступ к микрофону и попробуй ещё раз');toast('ошибка микрофона: '+e.error)};recognition.onend=()=>{recognition=null;setOvertonState('idle');$('#voiceBtn').textContent='🎙';$('#chatVoiceBtn').textContent='🎙';if(voiceMode)setVoiceHint('голосовые ответы включены. можешь продолжать говорить или писать')};try{recognition.start()}catch(e){recognition=null;toast('не удалось запустить микрофон. проверь разрешение сайта')}}
 $('#speakWelcome').onclick=()=>{voiceMode=!voiceMode;$('#speakWelcome').textContent=voiceMode?'🔊':'🔈';if(voiceMode){speakOverton('привет. я овертон. я здесь, чтобы выслушать тебя и помочь спокойно разобраться в мыслях. с чего начнём?');setVoiceHint('голосовые ответы включены')}else{window.speechSynthesis?.cancel();setVoiceHint('голосовые ответы выключены')}};
 function toggleVoice(){if(recognition){try{recognition.stop()}catch(e){};recognition=null;setOvertonState('idle');$('#voiceBtn').textContent='🎙';$('#chatVoiceBtn').textContent='🎙';setVoiceHint('голосовой ввод остановлен')}else startVoiceInput()}
-$('#voiceBtn').onclick=toggleVoice;$('#chatVoiceBtn').onclick=toggleVoice;$('#voiceOutputBtn').onclick=()=>{voiceMode=!voiceMode;$('#voiceOutputBtn').textContent=voiceMode?'🔊 озвучка вкл.':'🔈 озвучка выкл.';$('#voiceOutputBtn').setAttribute('aria-pressed',String(voiceMode));if(!voiceMode&&'speechSynthesis'in window){window.speechSynthesis.cancel();setOvertonState('idle')}setVoiceHint(voiceMode?'я буду озвучивать свои ответы':'голосовые ответы выключены')};
+$('#voiceBtn').onclick=toggleVoice;$('#chatVoiceBtn').onclick=toggleVoice;$('#voiceOutputBtn').onclick=()=>{voiceMode=!voiceMode;storage.set('voiceMode',voiceMode?'on':'off');$('#voiceOutputBtn').textContent=voiceMode?'🔊 озвучка вкл.':'🔈 озвучка выкл.';$('#voiceOutputBtn').setAttribute('aria-pressed',String(voiceMode));if(!voiceMode&&'speechSynthesis'in window){window.speechSynthesis.cancel();speechQueueToken++;setOvertonState('idle')}setVoiceHint(voiceMode?'я буду озвучивать свои ответы':'голосовые ответы выключены')};
 $('#skipIntro').onclick=()=>{introDone=true;awaitingName=false;storage.set('introDone','yes');if(chat.length===0)addBubble('приветствую! я — овертон. ♡\n\nможем пропустить знакомство и сразу перейти к тому, что тебе важно. о чём поговорим?','bot');else addBubble('конечно, пропустим знакомство. о чём тебе хотелось бы поговорить?','bot');$('#skipIntro').style.display='none';go('chat')};
 $('#homeSend').onclick=()=>sendChat($('#homeInput').value);$('#homeInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendChat(e.target.value)});$('#chatSend').onclick=()=>sendChat($('#chatInput').value);$('#chatInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendChat(e.target.value)});$('#endChat').onclick=newChat;
 $('#saveChat').onclick=()=>{let txt=chat.map(m=>(m.who==='user'?'ты: ':'овертона: ')+m.text).join('\n\n');if(!txt){toast('пока нечего сохранять');return}openEntry('разговор с овертоном',txt)};
@@ -398,7 +528,7 @@ const introScenes=[
  {kind:'finish',kicker:'мы готовы',title:'теперь можно начинать.',text:'можешь поговорить со мной, открыть любой раздел или просто немного освоиться. не нужно торопиться. с чего начнём?',target:null}
 ];
 let introIndex=0,introTypingTimer=null,introVoiceOn=false,introCurrentText='',introTypingDone=false,introTypingElement=null;
-function introStopSpeech(){if('speechSynthesis' in window)window.speechSynthesis.cancel();if(typeof speechQueueToken!=='undefined')speechQueueToken++}
+function introStopSpeech(){if('speechSynthesis' in window)window.speechSynthesis.cancel();if(overtoneAudio){overtoneAudio.pause();overtoneAudio=null}if(typeof speechQueueToken!=='undefined')speechQueueToken++}
 function introSpeak(text){if(!introVoiceOn||!('speechSynthesis' in window))return;introStopSpeech();speakOverton(text)}
 function introType(text){text=sentenceCase(text);clearTimeout(introTypingTimer);introCurrentText=text;introTypingDone=false;let el=introScenes[introIndex]?.kind==='tour'?$('#tourBubble'):$('#introCopy');introTypingElement=el;el.textContent='';el.classList.remove('done');let i=0;const reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;const tick=()=>{if(i<text.length){let ch=text.charAt(i++);el.textContent+=ch;let pause=/[.!?…]/.test(ch)?150:/[,;:]/.test(ch)?65:0;introTypingTimer=setTimeout(tick,reduced?0:20+pause)}else{introTypingDone=true;el.classList.add('done');}};tick();introSpeak(text.replace(/\n/g,' '))}
 function introClearTarget(){document.body.classList.remove('tour-active');document.querySelectorAll('.tour-target').forEach(x=>x.classList.remove('tour-target','tour-parent'));let c=$('#tourCallout');if(c)c.classList.remove('show')}
@@ -450,21 +580,14 @@ function applyLanguage(){
  const mode=$('#aiModeStatus');if(mode)mode.textContent=aiConsent?(OVERTON_API_ENDPOINT!=='PASTE_YOUR_WORKER_URL_HERE'?'Облачный ИИ разрешён':'Разрешение включено · сервер ещё не настроен'):'Локальный демонстрационный режим · отправка выключена';
 }
 $('#languageSelect')?.addEventListener('change',e=>{appLanguage=e.target.value==='en'?'en':'ru';storage.set('language',appLanguage);applyLanguage();toast(appLanguage==='ru'?'Язык интерфейса изменён.':'Interface language changed.')});
+function refreshVoiceChoices(){const select=$('#voiceChoice');if(!select||!('speechSynthesis'in window))return;const saved=storage.get('voiceChoice')||'auto';const voices=window.speechSynthesis.getVoices().filter(v=>v.lang&&v.lang.toLowerCase().startsWith(appLanguage==='en'?'en':'ru'));select.innerHTML='<option value="auto">Автоматический выбор</option>'+voices.map(v=>'<option value="'+String(v.name).replace(/&/g,'&amp;').replace(/"/g,'&quot;')+'">'+String(v.name)+' · '+v.lang+'</option>').join('');select.value=voices.some(v=>v.name===saved)?saved:'auto';}function syncVoiceSettings(){const gender=$('#voiceGender'),rate=$('#voiceRate'),rateValue=$('#voiceRateValue'),btn=$('#voiceOutputBtn');if(gender)gender.value=storage.get('voiceGender')||'male';if(rate)rate.value=storage.get('voiceRate')||'0.88';if(rateValue)rateValue.textContent=Number(rate?.value||.88).toFixed(2).replace('.',',')+'×';if(btn){btn.textContent=voiceMode?'🔊 озвучка вкл.':'🔈 озвучка выкл.';btn.setAttribute('aria-pressed',String(voiceMode));}}$('#voiceGender')?.addEventListener('change',e=>{storage.set('voiceGender',e.target.value);if($('#voiceChoice'))$('#voiceChoice').value='auto';storage.set('voiceChoice','auto');refreshVoiceChoices();toast('Тембр голоса обновлён.')});$('#voiceChoice')?.addEventListener('change',e=>{storage.set('voiceChoice',e.target.value);toast('Голос обновлён.')});$('#voiceRate')?.addEventListener('input',e=>{storage.set('voiceRate',e.target.value);const v=$('#voiceRateValue');if(v)v.textContent=Number(e.target.value).toFixed(2).replace('.',',')+'×'});$('#voicePreview')?.addEventListener('click',()=>{const sample=appLanguage==='ru'?'Привет. Я рядом. Можем никуда не торопиться и спокойно поговорить о том, что у тебя на душе.':'Hi. I am here. We can take our time and talk calmly about whatever is on your mind.';speakOverton(sample)});if('speechSynthesis'in window){refreshVoiceChoices();window.speechSynthesis.onvoiceschanged=refreshVoiceChoices;}syncVoiceSettings();
 function localizedGreeting(){
  const h=new Date().getHours();
  if(appLanguage==='en')return h<5?'Good night.':h<12?'Good morning.':h<18?'Good afternoon.':'Good evening.';
  return h<5?'Доброй ночи.':h<12?'Доброе утро.':h<18?'Добрый день.':'Добрый вечер.';
 }
 function speechLocale(){return appLanguage==='ru'?'ru-RU':'en-US'}
-function speakLocalized(text){
- if(!('speechSynthesis'in window)){toast(appLanguage==='ru'?'Озвучивание не поддерживается этим браузером.':'Speech playback is not supported in this browser.');return}
- window.speechSynthesis.cancel();speechQueueToken++;
- const utter=new SpeechSynthesisUtterance(String(text));utter.lang=speechLocale();utter.rate=.9;utter.pitch=.98;
- const v=getPreferredVoice(appLanguage);if(v)utter.voice=v;utter.rate=.86;utter.pitch=.84;
- const overlay=$('#introOverlay');utter.onstart=()=>overlay?.setAttribute('data-speaking','true');utter.onboundary=()=>{const orb=$('.intro-orb');if(orb)orb.style.filter='brightness(1.18)'};
- utter.onend=()=>{overlay?.setAttribute('data-speaking','false');const orb=$('.intro-orb');if(orb)orb.style.filter=''};utter.onerror=()=>overlay?.setAttribute('data-speaking','false');
- window.speechSynthesis.speak(utter);
-}
+function speakLocalized(text){const overlay=$('#introOverlay');if(overlay)overlay.setAttribute('data-speaking','true');speakOverton(text);const orb=$('.intro-orb');if(orb)orb.style.filter='brightness(1.08)';}
 function introSpeak(text){if(!introVoiceOn)return;speakLocalized(text)}
 function introType(text){
  text=sentenceCase(text);clearTimeout(introTypingTimer);introCurrentText=text;introTypingDone=false;
@@ -569,7 +692,7 @@ startVoiceInput=function(){
  recognition.onend=()=>{const transcript=finalText.trim();recognition=null;setOvertonState('idle');$('#voiceBtn').textContent='🎙';$('#chatVoiceBtn').textContent='🎙';if(transcript)sendChat(transcript);else setVoiceHint(appLanguage==='ru'?'Запись завершена. Можно попробовать ещё раз или написать сообщение.':'Recording ended. Try again or type a message.')};
  try{recognition.start()}catch(e){recognition=null;setVoiceHint(appLanguage==='ru'?'Не удалось включить микрофон. Проверьте разрешение браузера.':'Could not start microphone. Check browser permissions.')}
 };
-speakOverton=function(text){if(!voiceMode)return;speakLocalized(text)};
+// speakOverton already routes through the selected cloud/device voice.
 function reportRange(period){
  const now=new Date(),start=new Date(now);
  if(period==='week'){start.setDate(now.getDate()-6);start.setHours(0,0,0,0)}else{start.setDate(1);start.setHours(0,0,0,0)}
