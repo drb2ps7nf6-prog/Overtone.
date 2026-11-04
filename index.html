@@ -629,10 +629,13 @@ $('#introNameMic').onclick=()=>{
 $('#introAudio').onclick=()=>{introVoiceOn=!introVoiceOn;$('#introAudio').textContent=introVoiceOn?'🔊 '+(appLanguage==='ru'?'Голос включён':'Voice on'):'🔈 '+(appLanguage==='ru'?'Голос выключен':'Voice off');if(introVoiceOn)introSpeak(introCurrentText.replace(/\n/g,' '));else introStopSpeech()};
 function introNext(){
  const scene=introScenes[introIndex];
+ if(!scene)return;
+ // Finish the typewriter animation and advance on the same tap.
  if(!introTypingDone){clearTimeout(introTypingTimer);if(introTypingElement)introTypingElement.textContent=introCurrentText;introTypingElement?.classList.add('done');introTypingDone=true;}
- if(scene.kind==='name'){introSaveName();return}
- if(scene.kind==='finish'){introFinish();return}
- introIndex=Math.min(introIndex+1,introScenes.length-1);introRender();
+ if(scene.kind==='name'){introSaveName();return;}
+ if(scene.kind==='finish'){introFinish();return;}
+ introIndex=Math.min(introIndex+1,introScenes.length-1);
+ introRender();
 }
 function introFinish(){
  clearTimeout(introTypingTimer);introStopSpeech();introClearTarget();storage.set('introV3Done','yes');storage.set('introDone','yes');introDone=true;awaitingName=false;
