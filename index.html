@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#081321"><meta name="description" content="OVERTON — пространство для саморефлексии"><title>OVERTON — пространство для себя</title>
 <style>
@@ -516,7 +516,7 @@ function renderProfileName(){let el=$('#profileUserName');if(el)el.textContent=u
 function loadProfileFields(){let n=$('#profileNameInput'),a=$('#profileAboutInput'),h=$('#profileSupportInput');if(n)n.value=userName||'';if(a)a.value=userProfile.about||'';if(h)h.value=userProfile.support||'';let rs=$('#responseStyle');if(rs&&storage.get('responseStyle'))rs.value=storage.get('responseStyle')}
 $('#saveProfile').onclick=()=>{userName=$('#profileNameInput').value.trim().slice(0,32);userProfile={about:$('#profileAboutInput').value.trim().slice(0,1200),support:$('#profileSupportInput').value.trim().slice(0,700)};if(userName)storage.set('userName',userName);else storage.remove('userName');put('userProfile',userProfile);renderProfileName();$('#welcomeTitle').textContent=userName?'Hello, '+userName+'. I’m Overton.':'Hello. I’m Overton.';toast(appLanguage==='ru'?'Профиль сохранён. Эти сведения будут доступны в этом браузере.':'Profile saved. These details remain available in this browser.')};
 $('#responseStyle').onchange=e=>storage.set('responseStyle',e.target.value);
-const aiConsentInput=$('#aiConsent');if(aiConsentInput){aiConsentInput.checked=aiConsent;const refreshAiStatus=()=>{let status=$('#aiModeStatus');if(status)status.textContent=aiConsent?(OVERTON_API_ENDPOINT!=='PASTE_YOUR_WORKER_URL_HERE'?'Cloud AI enabled':'Consent saved · server not configured'):'Local demo · AI sending is off'};refreshAiStatus();aiConsentInput.onchange=e=>{aiConsent=!!e.target.checked;storage.set('aiConsent',aiConsent?'yes':'no');storage.set('aiConsentChoice',aiConsent?'yes':'no');refreshAiStatus();toast(aiConsent?'AI permission enabled':'AI message sharing is off')}}
+const aiConsentInput=$('#aiConsent');if(aiConsentInput){aiConsentInput.checked=aiConsent;const refreshAiStatus=()=>{let status=$('#aiModeStatus');if(status)status.textContent=aiConsent?(OVERTON_API_ENDPOINT!=='PASTE_YOUR_WORKER_URL_HERE'?'Cloud AI enabled':'Consent saved · server not configured'):'Local demo · AI sending is off'};refreshAiStatus();aiConsentInput.onchange=e=>{aiConsent=!!e.target.checked;storage.set('aiConsent',aiConsent?'yes':'no');storage.set('aiConsentChoiceV2',aiConsent?'yes':'no');storage.set('aiConsentChoice',aiConsent?'yes':'no');refreshAiStatus();toast(aiConsent?'AI permission enabled':'AI message sharing is off')}}
 $('#replayIntro').onclick=()=>{storage.remove('introV3Done');introIndex=0;introRender()};
 
 function renderHome(){$('#homeStats').textContent=`${entries.length} journal entries · ${moods.length} mood check-ins · ${exercises.length} completed reflections`;let recent=[...entries.map(e=>({label:e.title,date:e.date,kind:'journal'})),...moods.map(m=>({label:m.mood,date:m.date,kind:'mood'}))].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,3);$('#recentActivity').innerHTML=recent.length?recent.map(r=>`<div style="padding:7px 0;border-bottom:1px solid var(--line)"><b>${esc(r.label)}</b><span style="float:right;color:#aaa;font-size:10px">${new Date(r.date).toLocaleDateString('ru-RU')}</span><div style="font-size:10px;color:#aaa">${r.kind}</div></div>`).join(''):'nothing here yet. your first entry can start whenever you’re ready.'}
@@ -540,8 +540,8 @@ function introHighlight(view){introClearTarget();if(!view)return;let candidates=
 function introSetProgress(){let dots=[...$('#introProgress').children];dots.forEach((d,i)=>d.classList.toggle('active',i===introIndex))}
 function introRender(){let scene=introScenes[introIndex];if(!scene)return;introStopSpeech();introClearTarget();$('#introOverlay').classList.add('show');$('#introOverlay').classList.toggle('entering',introIndex===0);$('#introOverlay').classList.toggle('touring',scene.kind==='tour');$('#introKicker').textContent=scene.kicker;$('#introTitle').textContent=scene.title;$('#introNameWrap').classList.toggle('show',scene.kind==='name');$('#introLater').style.display=scene.kind==='name'?'inline-block':'none';$('#introNext').textContent=scene.kind==='name'?'Continue':scene.kind==='finish'?'Start chatting':'Next';$('#introCaption').textContent=scene.kind==='tour'?'This section is highlighted in the navigation':'You can skip this introduction at any time';introSetProgress();introType(scene.text);if(scene.target){setTimeout(()=>introHighlight(scene.target),100)}if(scene.kind==='name')setTimeout(()=>$('#introNameInput').focus({preventScroll:true}),450)}
 function introNext(){let scene=introScenes[introIndex];if(!introTypingDone){clearTimeout(introTypingTimer);if(introTypingElement)introTypingElement.textContent=introCurrentText;introTypingElement?.classList.add('done');introTypingDone=true;return}if(scene.kind==='name'){introSaveName();return}if(scene.kind==='finish'){introFinish();return}introIndex=Math.min(introIndex+1,introScenes.length-1);introRender()}
-function introSaveName(){let value=$('#introNameInput').value.trim().replace(/[<>]/g,'').slice(0,32);if(value){storage.set('userName',value);userName=value;$('#welcomeTitle').textContent='привет, '+value.toLowerCase()+'.'}else{storage.remove('userName');userName=''}renderProfileName();introIndex=2;introRender()}
-function introFinish(){clearTimeout(introTypingTimer);introStopSpeech();introClearTarget();storage.set('introV4Done','yes');storage.set('introV3Done','yes');storage.set('introDone','yes');introDone=true;awaitingName=false;$('#introOverlay').classList.remove('show','entering');document.documentElement.classList.remove('intro-open');document.body.classList.remove('intro-open');window.scrollTo({top:0,behavior:'instant'});go('home');let field=$('#homeInput');if(field){setTimeout(()=>field.focus({preventScroll:true}),250)}}
+function introSaveName(){let value=$('#introNameInput').value.trim().replace(/[<>]/g,'').slice(0,32);if(value){storage.set('userName',value);userName=value;$('#welcomeTitle').textContent='Hello, '+value+'. I’m Overton.'}else{storage.remove('userName');userName=''}renderProfileName();introIndex=2;introRender()}
+function introFinish(){clearTimeout(introTypingTimer);introStopSpeech();introClearTarget();storage.set('introV5Done','yes');storage.set('introV4Done','yes');storage.set('introV3Done','yes');storage.set('introDone','yes');introDone=true;awaitingName=false;$('#introOverlay').classList.remove('show','entering');document.documentElement.classList.remove('intro-open');document.body.classList.remove('intro-open');window.scrollTo({top:0,behavior:'instant'});go('home');let field=$('#homeInput');if(field){setTimeout(()=>field.focus({preventScroll:true}),250)}}
 function introSkip(){introFinish();toast('знакомство пропущено — все разделы доступны в меню')}
 function initIntroV2(){if(storage.get('introV3Done')==='yes'||storage.get('introDone')==='yes')return;introIndex=0;introRender();$('#introSkip').onclick=introSkip;$('#introNext').onclick=introNext;$('#introLater').onclick=()=>{storage.remove('userName');userName='';renderProfileName();introIndex=2;introRender()};$('#introNameInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();introNext()}});$('#introAudio').onclick=()=>{introVoiceOn=!introVoiceOn;$('#introAudio').textContent=introVoiceOn?'🔊 Voice on':'🔈 Voice off';if(introVoiceOn)introSpeak(introCurrentText.replace(/\n/g,' '));else introStopSpeech();if(!('speechSynthesis' in window)){introVoiceOn=false;$('#introAudio').textContent='озвучка недоступна';toast('в этом браузере нет синтеза речи')}}}
 
@@ -643,20 +643,20 @@ function introNext(){
  introRender();
 }
 function openAiConsentModal(){
- const modal=$('#aiConsentModal');if(!modal||aiConsent||storage.get('aiConsentChoice'))return;
+ const modal=$('#aiConsentModal');if(!modal||aiConsent||storage.get('aiConsentChoiceV2'))return;
  modal.classList.add('show');document.body.style.overflow='hidden';
  setTimeout(()=>$('#aiConsentAccept')?.focus({preventScroll:true}),80);
 }
 function closeAiConsentModal(){const modal=$('#aiConsentModal');if(modal)modal.classList.remove('show');document.body.style.overflow='';}
-function setAiConsent(allowed){aiConsent=!!allowed;storage.set('aiConsent',aiConsent?'yes':'no');storage.set('aiConsentChoice',aiConsent?'yes':'no');const checkbox=$('#aiConsent');if(checkbox)checkbox.checked=aiConsent;const status=$('#aiModeStatus');if(status)status.textContent=aiConsent?'Cloud AI enabled':'Local demo · AI sending is off';closeAiConsentModal();toast(aiConsent?'AI permission enabled':'You can enable AI replies later in Settings.');}
+function setAiConsent(allowed){aiConsent=!!allowed;storage.set('aiConsent',aiConsent?'yes':'no');storage.set('aiConsentChoiceV2',aiConsent?'yes':'no');storage.set('aiConsentChoice',aiConsent?'yes':'no');const checkbox=$('#aiConsent');if(checkbox)checkbox.checked=aiConsent;const status=$('#aiModeStatus');if(status)status.textContent=aiConsent?'Cloud AI enabled':'Local demo · AI sending is off';closeAiConsentModal();toast(aiConsent?'AI permission enabled':'You can enable AI replies later in Settings.');}
 $('#aiConsentAccept')?.addEventListener('click',()=>setAiConsent(true));
 $('#aiConsentDecline')?.addEventListener('click',()=>setAiConsent(false));
 function introFinish(){
- clearTimeout(introTypingTimer);introStopSpeech();introClearTarget();storage.set('introV4Done','yes');storage.set('introV3Done','yes');storage.set('introDone','yes');introDone=true;awaitingName=false;
+ clearTimeout(introTypingTimer);introStopSpeech();introClearTarget();storage.set('introV5Done','yes');storage.set('introV4Done','yes');storage.set('introV3Done','yes');storage.set('introDone','yes');introDone=true;awaitingName=false;
  $('#introOverlay').classList.remove('show','entering');document.documentElement.classList.remove('intro-open');document.body.classList.remove('intro-open');window.scrollTo({top:0,behavior:'instant'});go('home');setTimeout(openAiConsentModal,320);
 }
 function initIntroV2(){
- if(storage.get('introV4Done')==='yes')return;
+ if(storage.get('introV5Done')==='yes')return;
  introDone=false;awaitingName=true;introIndex=0;
  const overlay=$('#introOverlay');
  if(overlay){overlay.classList.add('show');overlay.style.pointerEvents='auto';}
@@ -817,6 +817,6 @@ function translateStaticNodes(){
 translateStaticNodes();
 applyLanguage();
 $('#welcomeTitle').textContent=userName?'Hello, '+userName+'. I’m Overton.':'Hello. I’m Overton.';
-if(storage.get('introV4Done')!=='yes'){introVoiceOn=true;$('#introAudio').textContent='🔊 Voice on';initIntroV2();}else if(!aiConsent&& !storage.get('aiConsentChoice')){setTimeout(openAiConsentModal,450);}
+if(storage.get('introV5Done')!=='yes'){introVoiceOn=true;$('#introAudio').textContent='🔊 Voice on';initIntroV2();}else if(!aiConsent&& !storage.get('aiConsentChoiceV2')){setTimeout(openAiConsentModal,450);}
 
 </script></body></html>
